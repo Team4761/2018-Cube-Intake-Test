@@ -1,5 +1,7 @@
 package org.robockets.cubeintaketest2018;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -50,16 +52,7 @@ public class Robot extends SampleRobot {
 	public void autonomous() {
 	}
 
-	public void cubeIntakeRun() {
-		double speed = SmartDashboard.getNumber("Cube intake speed", 0);
-		cubeIntakeRun(speed);
-	}
-	
-	public void cubeIntakeRun(double speed) {
-		cubeIntakeL.set(speed);
-		cubeIntakeR.set(speed);
 
-	}
 	/**
 	 * Runs the motors with arcade steering.
 	 */
@@ -68,10 +61,11 @@ public class Robot extends SampleRobot {
 		myRobot.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
 			myRobot.arcadeDrive(stick);
-			cubeIntakeRun();
+			cubeIntakeL.set(stick.getRawAxis(2));
+			cubeIntakeR.set(stick.getRawAxis(3));
+			
 			Timer.delay(0.005);
 		}
-		cubeIntakeRun(0);
 	}
 
 	/**
