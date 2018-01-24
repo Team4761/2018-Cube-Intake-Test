@@ -2,11 +2,11 @@ package org.robockets.cubeintaketest2018;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends SampleRobot {
 	Talon drivetrainL = new Talon(5);
 	Talon drivetrainR = new Talon(4);
-	RobotDrive myRobot = new RobotDrive(drivetrainL, drivetrainR);
+	DifferentialDrive myRobot = new DifferentialDrive(drivetrainL, drivetrainR);
 	Talon cubeIntakeL = new Talon(0);
 	Talon cubeIntakeR = new Talon(1);
 	Joystick stick = new Joystick(0);
@@ -60,7 +60,7 @@ public class Robot extends SampleRobot {
 	public void operatorControl() {
 		myRobot.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
-			myRobot.arcadeDrive(stick);
+			myRobot.arcadeDrive(-stick.getRawAxis(1), -stick.getRawAxis(5));
 			cubeIntakeL.set(stick.getRawAxis(2));
 			cubeIntakeR.set(stick.getRawAxis(3));
 			
